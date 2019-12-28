@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    
+    <title>Draggable</title>    
+    <script src="jquery.min.js" type="text/javascript"></script>
+    
+    <link href="jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet">
+    
+    <link href="codeplayer.css" type="text/css" rel="stylesheet">
+    
+</head>
+
+<body>
+    
+    <div id="header">
+        
+        <div id="logo" class="">CodePlayer</div>
+        
+        <div id="buttonCont">
+            <div id="html" class="but active">HTML</div>
+            <div id="css" class="but">CSS</div>
+            <div id="java" class="but">Javascript</div>
+            <div id="output" class="but active">Output</div>
+        </div>
+                
+   </div>
+    
+    <div id="bodyCont"> 
+        
+        <textarea id="htmlTab" class="panel" ><h1 id="head">Hello World</h1></textarea>
+        
+        <textarea id="cssTab" class="panel hidden" >h1{color: red;}</textarea>
+        
+        <textarea id="javaTab" class="panel hidden" >document.getElementById("head").innerHTML = "Hello There";</textarea>
+        
+        <iframe id="outputTab" class="panel"></iframe>
+    
+    
+    </div>
+   
+   
+    
+    <script type="text/javascript">
+        
+        function updateOut(){
+            
+            $("#outputTab").contents().find("html").html("<html><head><style type='text/css'>"+ $("#cssTab").val() +"</style></head><body>"+ $("#htmlTab").val() +"</body></html>");
+            
+            document.getElementById("outputTab").contentWindow.eval($("#javaTab").val());
+            
+        }
+        
+      
+        $(".but").hover(function(){
+           
+            $(this).addClass("highlightedbut")
+            
+        },function(){
+            
+           $(this).removeClass("highlightedbut");
+            
+        });
+        
+        $(".but").click(function(){
+           
+            $(this).toggleClass("active");
+            
+            $(this).removeClass("highlightedbut");
+            
+            var tabId = $(this).attr("id") + "Tab";
+            
+            $("#" + tabId).toggleClass("hidden");
+            
+            var numberOfActiveTabs = 4 - $(".hidden").length;
+            
+            $(".panel").width(($(window).width()/numberOfActiveTabs) - 10);
+            
+        });
+        
+        
+        $(".panel").height($(window).height() - $("#header").height() - 15);
+        
+        $(".panel").width($(window).width()/2 - 10);
+        
+         $("#outputTab").contents().find("html").html($("#htmlTab").val());
+        
+        updateOut();
+        
+        $("textarea").on('change keyup paste', function() {
+            
+            updateOut();
+            
+        });     
+    
+    </script>
+    
+</body>
+
+</html>
