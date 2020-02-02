@@ -1,2 +1,2 @@
 # Code-Player
-A Website for creating and editing HTML , CSS and Javascript files.
+A online-code editor for testing user-created HTML5, CSS3, Javascript code-snippets.
